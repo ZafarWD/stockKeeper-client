@@ -17,18 +17,12 @@ const PlywoodsShow = ({
     fetchPlywoods();
   }, [fetchPlywoods]);
 
-  const renderPlywoods = (plywoods, selectedPlyMeasurement, selectedPlyMM) => {
-    let toRender = mapItemsToQuery(
-      plywoods,
-      selectedPlyMeasurement,
-      "measurement"
-    );
-    toRender = mapItemsToQuery(toRender, selectedPlyMM, "mm");
+  const renderPlywoods = (array, selectedMeasurement, selectedMm) => {
+    let toRender = mapItemsToQuery(array, selectedMeasurement, "measurement");
+    toRender = mapItemsToQuery(toRender, selectedMm, "mm");
     if (!toRender.length)
       return <div className="text-center"> Nothing matches! :(</div>;
-    else {
-      return <TableContent array={toRender} type="plywoods" />;
-    }
+    else return <TableContent array={toRender} type="plywoods" />;
   };
 
   return (

@@ -1,10 +1,20 @@
 import React from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+
+import DoorsShow from "./DoorsShow";
+import DoorsCreate from "./DoorsCreate";
+import DoorsEdit from "./DoorsEdit";
+import DoorsDelete from "./DoorsDelete";
 
 const DoorsMain = (props) => {
   return (
-    <React.Fragment>
-      <h1>DoorsMain...</h1>
-    </React.Fragment>
+    <Switch>
+      <Route path="/doors/show" component={DoorsShow} />
+      <Route path="/doors/create" component={DoorsCreate} />
+      <Route path="/doors/edit/:id" component={DoorsEdit} />
+      <Route path="/doors/delete/:id" component={DoorsDelete} />
+      <Redirect from="/doors" to="/doors/show" />
+    </Switch>
   );
 };
 

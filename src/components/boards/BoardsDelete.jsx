@@ -1,11 +1,57 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 
-const BoardsDelete = () => {
+import Modal from "../common/Modal";
+import history from "../../history";
+import { deleteBoard, fetchBoard } from "../../actions";
+
+const BoardsDelete = (props) => {
+  const { fetchBoard } = props;
+  const { id } = props.match.params;
+  useEffect(() => {
+    fetchBoard(id);
+  }, [fetchBoard, id]);
+
+  const renderActions = () => {
+    return (
+      <React.Fragment>
+        <button
+          className="btn btn-danger"
+          onClick={() => props.deleteBoard(props.match.params.id)}
+        >
+          Delete
+        </button>
+        <button
+          className="btn btn-secondary"
+          onClick={() => history.push("/boards")}
+        >
+          Cancel
+        </button>
+      </React.Fragment>
+    );
+  };
+
+  const renderBody = (item) => {
+    const message = "Are you sure you want to delete this item";
+    if (item)
+      return `${message} with Company: ${item.company} and stock: ${item.stock}`;
+    else return `${message}`;
+  };
+
   return (
-    <React.Fragment>
-      <h2>BoardsDelete</h2>
-    </React.Fragment>
+    <Modal
+      title="Delete Board?"
+      body={renderBody(props.item)}
+      actions={renderActions()}
+      onDismiss={() => history.push("/boards")}
+    />
   );
 };
 
-export default BoardsDelete;
+const mapStateToProps = (state, ownProps) => {
+  return { item: state.boards[ownProps.match.params.id] };
+};
+
+export default connect(mapStateToProps, { deleteBoard, fetchBoard })(
+  BoardsDelete
+);

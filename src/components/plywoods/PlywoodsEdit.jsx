@@ -35,7 +35,6 @@ const mapStateToProps = (state, ownProps) => {
   return { item: state.plywoods[ownProps.match.params.id] };
 };
 
-export default connect(mapStateToProps, {
-  fetchPlywood,
-  updatePlywood,
-})(PlywoodsEdit);
+export default connect(mapStateToProps, { fetchPlywood, updatePlywood })(
+  PlywoodsEdit
+);

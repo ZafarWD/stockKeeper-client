@@ -7,9 +7,11 @@ import history from "../../history";
 
 const PlywoodsDelete = (props) => {
   const { fetchPlywood } = props;
+  const { id } = props.match.params;
+
   useEffect(() => {
-    fetchPlywood(props.match.params.id);
-  }, []);
+    fetchPlywood(id);
+  }, [id, fetchPlywood]);
 
   const renderActions = () => {
     return (
@@ -39,14 +41,12 @@ const PlywoodsDelete = (props) => {
   };
 
   return (
-    <React.Fragment>
-      <Modal
-        title="Delete Plywood?"
-        body={renderBody(props.item)}
-        actions={renderActions()}
-        onDismiss={() => history.push("/")}
-      />
-    </React.Fragment>
+    <Modal
+      title="Delete Plywood?"
+      body={renderBody(props.item)}
+      actions={renderActions()}
+      onDismiss={() => history.push("/")}
+    />
   );
 };
 
